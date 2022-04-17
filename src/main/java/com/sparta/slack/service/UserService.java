@@ -24,7 +24,7 @@ public class UserService {
         String userName = requestDto.getUserName();
 
         //회원가입 중복 체크
-        Optional<User> found = userRepository.findByUserName(userName);
+        Optional<User> found = userRepository.findByUserEmail(userEmail);
 
         //사용가능한 문자 정규화
         String pattern = "^[a-zA-Z0-9]*$";

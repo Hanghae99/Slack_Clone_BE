@@ -80,7 +80,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(formLoginFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/user/signup", "/user/login").permitAll()
                 // 어떤 요청이든 '인증'
                 .antMatchers("/h2-console/**").permitAll()
