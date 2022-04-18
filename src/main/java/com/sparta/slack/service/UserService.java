@@ -27,15 +27,14 @@ public class UserService {
         Optional<User> found = userRepository.findByUserEmail(userEmail);
 
         //사용가능한 문자 정규화
-        String pattern = "^[a-zA-Z0-9]*$";
-        String pattern2 = "^[A-Za-z0-9#?!@$ %^&*-]*$";
+        String pattern = "^[A-Za-z0-9#?!@$ .%^&*-]*$";
         //        ^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-])*$
 
         if(found.isPresent()) {
             throw new IllegalArgumentException("중복된 이메일 입니다!");
         } else if (!Pattern.matches(pattern, userEmail)) {
             throw new IllegalArgumentException("영문, 숫자로만 입력하세요");
-        } else if (!Pattern.matches(pattern2,password)) {
+        } else if (!Pattern.matches(pattern,password)) {
             throw new IllegalArgumentException("비밀변호는 대소문자숫자특수문자를 포함해야합니다");
         } else if (password.length() < 8) {
             throw new IllegalArgumentException("비밀번호를 8자 이상 입력하세요");

@@ -17,11 +17,9 @@ import java.util.Map;
 public class UserController {
     private final UserService userService;
 
-
     //회원가입
     @PostMapping("/user/signup")
     public User createUser(@RequestBody UserRequestDto requestDto) {
-
         return userService.registerUser(requestDto);
     }
 
