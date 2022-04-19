@@ -11,6 +11,9 @@ public class UserRequestDto {
     private String passwordCheck;
     private String userName;
 
+    public UserRequestDto (){
+    }
+
     public UserRequestDto(String userEmail, String password, String passwordCheck, String userName) {
         this.userEmail = userEmail;
         this.password = password;
