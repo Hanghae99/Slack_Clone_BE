@@ -98,13 +98,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("http://localhost:3000");
-        configuration.addAllowedOrigin("http://54.180.90.59:3000");
-        configuration.addAllowedOrigin("http://54.180.90.59:8080");
+        //configuration.addAllowedOrigin("http://54.180.90.59:3000");
+        //configuration.addAllowedOrigin("http://54.180.90.59:8080");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");
         configuration.setAllowCredentials(true);
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
@@ -151,6 +150,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("GET,/api/post/**");
 
         skipPathList.add("GET,/favicon.ico");
+
+        //socket
+        skipPathList.add("GET,/gs-guide-websocket/**/**");
+        skipPathList.add("GET,/gs-guide-websocket/**");
+        skipPathList.add("GET,/gs-guide-websocket");
+
+        skipPathList.add("GET,/app/**");
+        skipPathList.add("GET,/app/hello");
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,

@@ -46,7 +46,7 @@ public class ImageService {
 
         User user = user1.get();
 
-        user.setImgUrl(imageDto.getFileUrl());
+        user.setImageUrl(imageDto.getFileUrl());
         user.setUserName(imageRequestDto.getUserName());
 
         userRepository.save(user);
