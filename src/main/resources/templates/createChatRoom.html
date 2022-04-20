@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/js/createChatRoom.js"></script>
+</head>
+<body>
+<form th:action="@{/chatroom/create}" method="post">
+    <h2>방생성</h2>
+    <label >
+        방이름 :
+        <input  type="text" name="chatRoomName">
+    </label>
+    <button type="submit" >생성하기</button>
+</form>
+
+<table id="chatRoomList"></table>
+</body>
+</html>

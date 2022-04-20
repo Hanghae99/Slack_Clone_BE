@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script>
+        function login(){
+            let data = {
+                    "username" : $('#username').val(),
+                    "password" : $('#password').val()
+                }
+            $.ajax({
+                type: "POST",
+                url: "/user/login",
+                contentType: "application/json; charset=utf-8",
+                data : JSON.stringify(data),
+                success: function (response) {
+                   // alert(response.getResponseHeader('Authorization'));
+                    localStorage.setItem("Authorization",response);
+                },error: function (error){
+                    console.log(error)
+                }
+            });
+        }
+
+        function gochatRoom(){
+
+            $.ajax({
+                type: "GET",
+                url: "/chatRoom",
+                beforeSend: function (xhr) {   //Include the bearer token in header
+                    xhr.setRequestHeader("Authorization", localStorage.getItem("Authorization"));
+                },
+                success: function (response) {
+                    location.href="/chatRoom";
+                },error: function (error){
+                    console.log(error)
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h2>로그인</h2>
+    <label >
+        아이디 :
+        <input  type="text" id="username" name="username">
+    </label>
+    <label >
+        비밀번호 :
+        <input  type="text" id="password" name="password">
+    </label>
+    <button type="button" onclick="login()" >로그인</button>
+
+<button type="button" onclick="gochatRoom()">챗룸으로 가기</button>
+
+</body>
+</html>
