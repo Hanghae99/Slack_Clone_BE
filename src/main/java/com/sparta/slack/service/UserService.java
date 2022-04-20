@@ -60,7 +60,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User getUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public User getUser(UserDetailsImpl userDetails) {
         User user = new User();
         user.setUserEmail(userDetails.getUserEmail());
         user.setUserName(userDetails.getUsername());

@@ -32,7 +32,7 @@ public class ChatMessage {
     public enum MessageType {
         ENTER, TALK, QUIT
     }
-    public ChatMessage(MessageRequestDto message, User user, ChatRoom chatRoom){
+    public ChatMessage(ChatRoom chatRoom, User user,MessageRequestDto message){
         this.user=user;
         this.Chatroom=chatRoom;
         this.message=message.getMessage();

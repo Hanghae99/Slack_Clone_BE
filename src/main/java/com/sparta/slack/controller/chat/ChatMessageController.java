@@ -2,6 +2,7 @@ package com.sparta.slack.controller.chat;
 
 import com.sparta.slack.dto.chat.MessageRequestDto;
 import com.sparta.slack.dto.chat.MessageResponseDto;
+import com.sparta.slack.model.chat.ChatMessage;
 import com.sparta.slack.repository.UserRepository;
 import com.sparta.slack.security.jwt.JwtDecoder;
 import com.sparta.slack.service.chat.ChatMessageService;
@@ -38,32 +39,37 @@ public class ChatMessageController {
         System.out.println("chatHandler 에서 roomId : " + message.getRoomId());
         System.out.println("chatHandler 에서 message : " + message.getMessage());
         System.out.println("chatHandler 에서 userName : " + message.getUsername());
+        System.out.println("chatHandler 에서 type : " + message.getType());
 
 
         /* ToDo
          * 해당 destination으로 전달할때 sender(user)를 같이 전달해야함
          */
         // 로그인 회원 정보를 들어온 메시지에 값 세팅
-//        String username = jwtDecoder.decodeUsername(token);
-//        Optional<User> user1 = userRepository.findByUserName(username);
-//        User user = user1.get();
-//        message.setUserId(user.getUserId());
-//        message.setUsername(user.getUserName());
+    //    String username = jwtDecoder.decodeUsername(token);
+
+
+        // 해당 메세지 저장
+        chatMessageService.saveMessage(message);
 //
-//        // 메시지 생성 시간 삽입
-//        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd HH:mm");
-//        Calendar cal = Calendar.getInstance();
-//        Date date = cal.getTime();
-//        sdf.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
-//        String dateResult = sdf.format(date);
-//        message.setCreatedAt(dateResult);
-//        // 방에 처음입장했을때.
+//
 //        if(ChatMessage.MessageType.ENTER.equals(message.getType())){
+//            /** Todo
+//             *  1. 입장메세지
+//             *  2. [해당 유저가 chatRoomJoin에 존재하지 않을경우 ]
+//             *     -입장 시간 저장
+//             *  3. [해당 유저가 chatRoomJoin에 존재 할 경우]
+//             *     -해당 유저의 입장시간 이후의 메세지를 select 해서 list로 전달
+//             */
+//            //
 //            // ChatRoomJoin 에 저장,
-//            chatRoomJoinService.joinTimeSave(user,message);
+//            chatRoomJoinService.joinTimeSave(message);
 //        }
         // 방을 구별해주기 위해서 @SendTo를 쓰지 않고 SimpMessageSendingOperations를 사용해서 방 구별을 해줄 수 있게 함 ex) "/topic/greetings+roomId"
-        messagingTemplate.convertAndSend("/topic/greetings"+message.getRoomId(),new MessageResponseDto(HtmlUtils.htmlEscape(message.getMessage())));
+        messagingTemplate.convertAndSend("/topic/greetings/"+message.getRoomId(),
+                new MessageResponseDto(HtmlUtils.htmlEscape(message.getMessage())
+            )
+        );
         /*+message.getRoomId()*/
        // return new Greeting("Hello, " + HtmlUtils.htmlEscape(message.getName()) + "!");
        // 메세지 저장

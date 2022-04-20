@@ -17,10 +17,12 @@ public class ChatRoomJoinService {
     private final ChatRoomJoinRepository chatRoomJoinRepository;
     private final ChatRoomRepository chatRoomRepository;
 
-    public void joinTimeSave(User user, MessageRequestDto message) {
-        Optional<ChatRoom> chatRoom= chatRoomRepository.findByChatRoomId(message.getRoomId());
-        ChatRoomJoin chatRoomJoin =new ChatRoomJoin(user ,message,chatRoom.get());
-        chatRoomJoinRepository.save(chatRoomJoin);
+    public void joinTimeSave(MessageRequestDto message) {
+//       // 해당 유저가 이미 입장했을때 확인
+//        chatRoomJoinRepository.findByChatRoomAndUser()
+//        Optional<ChatRoom> chatRoom= chatRoomRepository.findByChatRoomId(message.getRoomId());
+//        ChatRoomJoin chatRoomJoin =new ChatRoomJoin(user ,message,chatRoom.get());
+//        chatRoomJoinRepository.save(chatRoomJoin);
 
     }
 }

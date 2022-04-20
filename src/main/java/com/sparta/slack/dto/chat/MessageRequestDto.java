@@ -11,7 +11,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MessageRequestDto {
-    private Long userId;
     private String username;
     private String roomId;
     private String message;

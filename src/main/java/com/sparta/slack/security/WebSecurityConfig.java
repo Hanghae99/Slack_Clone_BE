@@ -60,6 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) {
+
         web.ignoring().antMatchers("/h2-console/**");
     }
 
@@ -74,6 +75,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .headers() .frameOptions().sameOrigin().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http
@@ -82,14 +84,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/user/signup", "/user/login").permitAll()
+                .antMatchers("/user/signup", "/user/login","/user/loginView").permitAll()
                 // 어떤 요청이든 '인증'
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/**").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(HttpMethod.POST, "/**").permitAll()
+                .anyRequest().permitAll()
                 .and()
-                    .logout()
-                    .logoutUrl("/user/logout")
+                .logout()
+                .logoutUrl("/user/logout")
                 .permitAll();
     }
 
@@ -135,7 +138,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Static 정보 접근 허용
         skipPathList.add("GET,/images/**");
         skipPathList.add("GET,/css/**");
+        skipPathList.add("GET,/js/**");
+//        skipPathList.add("POST,/**");
+//        skipPathList.add("GET,/**");
 
+        skipPathList.add("GET,/webjars/**");
         // h2-console 허용
         skipPathList.add("GET,/h2-console/**");
         skipPathList.add("POST,/h2-console/**");
@@ -145,19 +152,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //로그인관련 API 허용
         skipPathList.add("POST,/user/login");
+        skipPathList.add("GET,/user/loginView");
 
-        skipPathList.add("GET,/");
         skipPathList.add("GET,/api/post/**");
-
         skipPathList.add("GET,/favicon.ico");
 
-        //socket
         skipPathList.add("GET,/gs-guide-websocket/**/**");
         skipPathList.add("GET,/gs-guide-websocket/**");
         skipPathList.add("GET,/gs-guide-websocket");
 
         skipPathList.add("GET,/app/**");
         skipPathList.add("GET,/app/hello");
+
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(
                 skipPathList,
