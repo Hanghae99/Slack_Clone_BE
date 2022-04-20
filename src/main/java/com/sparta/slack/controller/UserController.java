@@ -2,12 +2,12 @@ package com.sparta.slack.controller;
 
 import com.sparta.slack.dto.UserRequestDto;
 import com.sparta.slack.model.User;
+import com.sparta.slack.security.UserDetailsImpl;
 import com.sparta.slack.service.UserService;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,5 +29,10 @@ public class UserController {
         Map<String, String> map = new HashMap<>();
         map.put("errMsg", e.getMessage());
         return map;
+    }
+
+    @GetMapping("/user")
+    public User getUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return userService.getUser(userDetails);
     }
 }

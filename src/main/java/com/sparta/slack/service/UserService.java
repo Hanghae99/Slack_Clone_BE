@@ -3,7 +3,9 @@ package com.sparta.slack.service;
 import com.sparta.slack.dto.UserRequestDto;
 import com.sparta.slack.model.User;
 import com.sparta.slack.repository.UserRepository;
+import com.sparta.slack.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,5 +58,13 @@ public class UserService {
         User user = new User(requestDto);
 
         return userRepository.save(user);
+    }
+
+    public User getUser(@AuthenticationPrincipal UserDetailsImpl userDetails) {
+        User user = new User();
+        user.setUserEmail(userDetails.getUserEmail());
+        user.setUserName(userDetails.getUsername());
+        user.setImageUrl(userDetails.getUser().getImageUrl());
+        return user;
     }
 }

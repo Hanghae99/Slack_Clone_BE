@@ -25,6 +25,9 @@ public class User {
     @Column(nullable = false)
     private String userName;
 
+    @Column
+    private String imageUrl;
+
     public User(UserRequestDto requestDto) {
         this.userEmail = requestDto.getUserEmail();
         this.password = requestDto.getPassword();

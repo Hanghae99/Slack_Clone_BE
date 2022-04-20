@@ -23,6 +23,10 @@ public class UserDetailsImpl implements UserDetails {
         return null;
     }
 
+    public String getUserEmail() {
+        return user.getUserEmail();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();
