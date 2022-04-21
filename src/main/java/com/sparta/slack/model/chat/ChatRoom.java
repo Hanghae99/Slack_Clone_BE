@@ -23,5 +23,10 @@ public class ChatRoom {
         this.chatRoomName= chatRoom.getChatRoomName();
     }
 
+    public ChatRoom(String chatRoomId,String chatRoomName) {
+        this.chatRoomId = chatRoomId;
+        this.chatRoomName= chatRoomName;
+    }
+
 
 }

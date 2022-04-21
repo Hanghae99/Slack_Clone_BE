@@ -16,14 +16,14 @@ public class ChatRoomJoin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long joinId;
     @ManyToOne
-    private ChatRoom ChatRoom;
+    private ChatRoom chatRoom;
     @ManyToOne
     private User user;
     @Column
     private String enterTime;
 
-    public ChatRoomJoin(User user, MessageRequestDto message, ChatRoom chatRoom) {
-        this.ChatRoom=chatRoom;
+    public ChatRoomJoin( ChatRoom chatRoom ,User user,MessageRequestDto message) {
+        this.chatRoom=chatRoom;
         this.user=user;
         this.enterTime = message.getCreatedAt();
     }

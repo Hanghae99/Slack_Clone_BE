@@ -1,6 +1,7 @@
 package com.sparta.slack.service;
 
 import com.sparta.slack.dto.UserRequestDto;
+import com.sparta.slack.dto.chat.MessageInviteUserResponseDto;
 import com.sparta.slack.model.User;
 import com.sparta.slack.repository.UserRepository;
 import com.sparta.slack.security.UserDetailsImpl;
@@ -10,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -60,11 +63,23 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    // 현재 유저 정보 가져오기
     public User getUser(UserDetailsImpl userDetails) {
         User user = new User();
         user.setUserEmail(userDetails.getUserEmail());
         user.setUserName(userDetails.getUsername());
         user.setImageUrl(userDetails.getUser().getImageUrl());
         return user;
+    }
+
+    // 전체 유저 목록 가져오기
+    public List<MessageInviteUserResponseDto> inviteUserList() {
+        List<User> userList =userRepository.findAll();
+        List<MessageInviteUserResponseDto> inviteUserList = new ArrayList<>();
+        for(User user : userList){
+            MessageInviteUserResponseDto messageInviteUserResponseDto = new MessageInviteUserResponseDto(user.getUserEmail(),user.getUserName(),user.getImageUrl());
+            inviteUserList.add(messageInviteUserResponseDto);
+        }
+        return inviteUserList;
     }
 }

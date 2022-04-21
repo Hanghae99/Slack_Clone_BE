@@ -103,6 +103,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedOrigin("http://localhost:3000");
         //configuration.addAllowedOrigin("http://54.180.90.59:3000");
         //configuration.addAllowedOrigin("http://54.180.90.59:8080");
+        configuration.addAllowedOrigin("http://hanghae99-sout.s3-website.ap-northeast-2.amazonaws.com"); // 배포 시
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");
@@ -142,6 +143,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        skipPathList.add("POST,/**");
 //        skipPathList.add("GET,/**");
 
+
+
         skipPathList.add("GET,/webjars/**");
         // h2-console 허용
         skipPathList.add("GET,/h2-console/**");
@@ -163,6 +166,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         skipPathList.add("GET,/app/**");
         skipPathList.add("GET,/app/hello");
+
+        skipPathList.add("GET,/chatRoom/get");
+        skipPathList.add("POST,/chatRoom/create");
 
 
         FilterSkipMatcher matcher = new FilterSkipMatcher(

@@ -8,7 +8,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class MessageRequestDto {
     private String username;
@@ -16,4 +15,11 @@ public class MessageRequestDto {
     private String message;
     private String createdAt;
     private ChatMessage.MessageType type;
+
+    public MessageRequestDto(ChatMessage chatMessage) {
+        this.username = chatMessage.getUser().getUserName();
+        this.roomId = chatMessage.getChatroom().getChatRoomId();
+        this.createdAt =chatMessage.getCreatedAt();
+        this.type = chatMessage.getMessageType();
+    }
 }

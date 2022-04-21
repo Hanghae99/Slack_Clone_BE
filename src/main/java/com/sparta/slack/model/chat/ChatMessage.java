@@ -19,7 +19,7 @@ public class ChatMessage {
     @ManyToOne
     private User user;
     @ManyToOne
-    private ChatRoom Chatroom; // 방번호
+    private ChatRoom chatroom; // 방번호
     @Column
     private MessageType messageType;
     @Column
@@ -34,8 +34,9 @@ public class ChatMessage {
     }
     public ChatMessage(ChatRoom chatRoom, User user,MessageRequestDto message){
         this.user=user;
-        this.Chatroom=chatRoom;
+        this.chatroom=chatRoom;
         this.message=message.getMessage();
         this.createdAt=message.getCreatedAt();
+        this.messageType=message.getType();
     }
 }
